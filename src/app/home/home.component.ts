@@ -9,6 +9,7 @@ import {MatDivider} from "@angular/material/divider";
 import {MatDialog} from "@angular/material/dialog";
 import {InvalidFileDialogComponent} from "../invalid-file-dialog/invalid-file-dialog.component";
 import {LootTable} from "../models/loot-table.model";
+import {LootTablePool} from "../models/loot-table-pool.model";
 
 @Component({
   selector: 'app-home',
@@ -27,6 +28,7 @@ import {LootTable} from "../models/loot-table.model";
 })
 export class HomeComponent {
   importedFile?: LootTable;
+  pools: LootTablePool[] = [];
 
   constructor(public dialog: MatDialog) {}
 
@@ -40,17 +42,21 @@ export class HomeComponent {
         try
         {
           this.importedFile = JSON.parse(e.target.result);
+
+          // Show error if the file doesn't have the 'pools' field
+          if (!this.dataIsLootTable(this.importedFile)) return this.openDialog();
+
+          // Add pools
+          this.pools = this.importedFile.pools;
         }
         catch (e)
         {
-          // Open error dialog if the file is invalid
+          // Open error dialog if the file is not JSON
           this.openDialog();
         }
       };
 
       reader.readAsText(inputNode.files[0]);
-
-      if (!this.dataIsLootTable(this.importedFile)) this.openDialog();
     }
   }
 
@@ -68,6 +74,6 @@ export class HomeComponent {
   }
 
   private dataIsLootTable(data: any): data is LootTable {
-    return data.pools.size > 0;
+    return 'pools' in data;
   }
 }
