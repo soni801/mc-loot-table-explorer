@@ -20,6 +20,12 @@ import {
 import {MatFormField, MatFormFieldModule} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
+import {
+  MatAccordion, MatExpansionModule,
+  MatExpansionPanel,
+  MatExpansionPanelDescription,
+  MatExpansionPanelTitle
+} from "@angular/material/expansion";
 
 @Component({
   selector: 'app-home',
@@ -42,7 +48,12 @@ import {FormsModule} from "@angular/forms";
     MatListItemTitle,
     MatListSubheaderCssMatStyler,
     MatMenuModule,
-    FormsModule
+    FormsModule,
+    MatAccordion,
+    MatExpansionModule,
+    MatExpansionPanel,
+    MatExpansionPanelTitle,
+    MatExpansionPanelDescription
   ]
 })
 export class HomeComponent {

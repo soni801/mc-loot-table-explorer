@@ -1,5 +1,8 @@
 <div class="container">
+  <!-- Heading -->
   <h2>Minecraft Loot Table Explorer</h2>
+
+  <!-- Welcome card -->
   <mat-card>
     <mat-card-header>
       <mat-card-title>Welcome</mat-card-title>
@@ -28,13 +31,22 @@
       <a hidden id="export-file-anchor"></a>
     </mat-card-actions>
   </mat-card>
+
+  <!-- Pools -->
   <h4 class="padding-top">Pools</h4>
-  <mat-list>
+  <mat-accordion>
     @for (pool of pools; track pool) {
-      <mat-list-item>
-        <span matListItemTitle>Pool {{pools.indexOf(pool) + 1}}</span>
-        <span matListItemLine>{{pool.entries.length}} entries</span>
-      </mat-list-item>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Pool {{pools.indexOf(pool) + 1}}</mat-panel-title>
+          <mat-panel-description>{{pool.entries.length}} entries</mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-list>
+          @for (entry of pool.entries; track entry) {
+            <mat-list-item>{{entry.name}}</mat-list-item>
+          }
+        </mat-list>
+      </mat-expansion-panel>
     }
-  </mat-list>
+  </mat-accordion>
 </div>
