@@ -3,6 +3,14 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+// Class to improve icon look when used in combination with text
+.text-icon
+{
+  width: min-content !important;
+  height: min-content !important;
+  font-size: 1em;
+}
+
 // Utility classes
 .padding-top { padding-top: .75em; }
 .scroll { overflow-x: scroll; }
