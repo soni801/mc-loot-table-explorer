@@ -15,9 +15,15 @@
       <mat-divider></mat-divider>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button (click)="fileInput.click()">IMPORT</button>
-      <button mat-button (click)="exportFile()">EXPORT</button>
-
+      <div>
+        <button mat-button (click)="fileInput.click()">IMPORT</button>
+        <button mat-button (click)="exportFile()">EXPORT</button>
+        <mat-form-field appearance="outline">
+          <mat-label>File name</mat-label>
+          <input matInput [(ngModel)]="fileName">
+          <span matSuffix>.json</span>
+        </mat-form-field>
+      </div>
       <input hidden (change)="onFileSelected()" #fileInput type="file" accept="application/json" id="import-file-input">
       <a hidden id="export-file-anchor"></a>
     </mat-card-actions>

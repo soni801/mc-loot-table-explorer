@@ -17,6 +17,9 @@ import {
   MatListItemTitle,
   MatListSubheaderCssMatStyler
 } from "@angular/material/list";
+import {MatFormField, MatFormFieldModule} from "@angular/material/form-field";
+import {MatInput} from "@angular/material/input";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-home',
@@ -25,21 +28,26 @@ import {
   standalone: true,
   imports: [
     AsyncPipe,
-    MatGridListModule,
-    MatMenuModule,
-    MatIconModule,
     MatButtonModule,
     MatCardModule,
     MatDivider,
+    MatFormField,
+    MatFormFieldModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInput,
     MatList,
     MatListItem,
-    MatListSubheaderCssMatStyler,
+    MatListItemLine,
     MatListItemTitle,
-    MatListItemLine
+    MatListSubheaderCssMatStyler,
+    MatMenuModule,
+    FormsModule
   ]
 })
 export class HomeComponent {
   importedFile?: LootTable;
+  fileName: string = '';
   pools: LootTablePool[] = [];
 
   constructor(public dialog: MatDialog) {}
@@ -55,8 +63,11 @@ export class HomeComponent {
         {
           this.importedFile = JSON.parse(e.target.result);
 
-          // Show error if the file doesn't have the 'pools' field
+          // Show error if the file doesn't have the 'pools' field (because it would not be a valid loot table)
           if (!this.dataIsLootTable(this.importedFile)) return this.openDialog();
+
+          // Save filename without file extension
+          this.fileName = inputNode.files[0].name.replace('.json', '');
 
           // Add pools
           this.pools = this.importedFile.pools;
@@ -81,7 +92,7 @@ export class HomeComponent {
     const exportFileAnchor = document.querySelector('#export-file-anchor') as HTMLAnchorElement;
 
     exportFileAnchor.setAttribute('href', dataAsString);
-    exportFileAnchor.setAttribute('download', 'loot_table.json');
+    exportFileAnchor.setAttribute('download', `${this.fileName}.json`);
     exportFileAnchor.click();
   }
 
