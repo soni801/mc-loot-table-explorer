@@ -49,6 +49,8 @@ export class HomeComponent {
       };
 
       reader.readAsText(inputNode.files[0]);
+
+      if (!this.dataIsLootTable(this.importedFile)) this.openDialog();
     }
   }
 
@@ -63,5 +65,9 @@ export class HomeComponent {
     exportFileAnchor.setAttribute('href', dataAsString);
     exportFileAnchor.setAttribute('download', 'loot_table.json');
     exportFileAnchor.click();
+  }
+
+  private dataIsLootTable(data: any): data is LootTable {
+    return data.pools.size > 0;
   }
 }
