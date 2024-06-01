@@ -1,7 +1,7 @@
 <div class="grid-container">
-  <h1 class="mat-h1">Dashboard</h1>
-  <mat-grid-list cols="2" rowHeight="350px">
-    @for (card of cards | async; track card) {
+  <h1 class="mat-h1">Minecraft Loot Table Explorer</h1>
+  <mat-grid-list cols="2" rowHeight="200px">
+    <!--@for (card of cards | async; track card) {
       <mat-grid-tile [colspan]="card.cols" [rowspan]="card.rows">
         <mat-card class="dashboard-card">
           <mat-card-header>
@@ -21,6 +21,20 @@
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>
-    }
+    }-->
+    <mat-grid-tile colspan="2" rowspan="1">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>Welcome</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-divider></mat-divider>
+          <p>This website can be used to look at Minecraft loot tables, modify them, and optionally save the
+            modifications. You can also build a new loot table from scratch. The goal of the website is to simplify the
+            loot table creation process, to avoid needing to learn complicated inner workings of loot tables (which
+            Microsoft seem to keep making worse every year).</p>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
   </mat-grid-list>
 </div>
