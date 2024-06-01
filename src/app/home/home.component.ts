@@ -10,6 +10,13 @@ import {MatDialog} from "@angular/material/dialog";
 import {InvalidFileDialogComponent} from "../invalid-file-dialog/invalid-file-dialog.component";
 import {LootTable} from "../models/loot-table.model";
 import {LootTablePool} from "../models/loot-table-pool.model";
+import {
+  MatList,
+  MatListItem,
+  MatListItemLine,
+  MatListItemTitle,
+  MatListSubheaderCssMatStyler
+} from "@angular/material/list";
 
 @Component({
   selector: 'app-home',
@@ -23,7 +30,12 @@ import {LootTablePool} from "../models/loot-table-pool.model";
     MatIconModule,
     MatButtonModule,
     MatCardModule,
-    MatDivider
+    MatDivider,
+    MatList,
+    MatListItem,
+    MatListSubheaderCssMatStyler,
+    MatListItemTitle,
+    MatListItemLine
   ]
 })
 export class HomeComponent {

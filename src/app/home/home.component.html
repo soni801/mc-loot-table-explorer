@@ -1,57 +1,34 @@
-<div class="grid-container">
-  <h1 class="mat-h1">Minecraft Loot Table Explorer</h1>
-  <mat-grid-list cols="4" rowHeight="220px">
-    <!--@for (card of cards | async; track card) {
-      <mat-grid-tile [colspan]="card.cols" [rowspan]="card.rows">
-        <mat-card class="dashboard-card">
-          <mat-card-header>
-            <mat-card-title>
-              {{card.title}}
-              <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-              <mat-menu #menu="matMenu" xPosition="before">
-                <button mat-menu-item>Expand</button>
-                <button mat-menu-item>Remove</button>
-              </mat-menu>
-            </mat-card-title>
-          </mat-card-header>
-          <mat-card-content class="dashboard-card-content">
-            <div>Card Content Here</div>
-          </mat-card-content>
-        </mat-card>
-      </mat-grid-tile>
-    }-->
-    <mat-grid-tile colspan="4">
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>Welcome</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p class="padding-top">This website can be used to look at Minecraft loot tables, modify them, and optionally
-            save the modifications. You can also build a new loot table from scratch. The goal of the website is to
-            simplify the loot table creation process, to avoid needing to learn complicated inner workings of loot\
-            tables (which Microsoft seem to keep making worse every year). The current version of this website is only
-            compatible with Minecraft versions 1.20.5 and 1.20.6. I'll update it whenever I feel the need to, meaning
-            that I will never guarantee quick updates or support for specific versions at all. However, all the code is
-            open source and open for contributions on <a href="https://github.com/soni801/mc-loot-table-explorer" target="_blank">GitHub<mat-icon class="text-icon" fontIcon="open_in_new"></mat-icon></a>.</p>
-          <mat-divider></mat-divider>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-button (click)="fileInput.click()">IMPORT</button>
-          <button mat-button (click)="exportFile()">EXPORT</button>
-          <input hidden (change)="onFileSelected()" #fileInput type="file" accept="application/json" id="import-file-input">
-          <a hidden id="export-file-anchor"></a>
-        </mat-card-actions>
-      </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile rowspan="2">
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>Content</mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="scroll">Loot table content will appear here.</mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
+<div class="container">
+  <h2>Minecraft Loot Table Explorer</h2>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Welcome</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="padding-top">This website can be used to look at Minecraft loot tables, modify them, and optionally save
+        the modifications. You can also build a new loot table from scratch. The goal of the website is to simplify the
+        loot table creation process, to avoid needing to learn complicated inner workings of loot\ tables (which
+        Microsoft seem to keep making worse every year). The current version of this website is only compatible with
+        Minecraft versions 1.20.5 and 1.20.6. I'll update it whenever I feel the need to, meaning that I will never
+        guarantee quick updates or support for specific versions at all. However, all the code is open source and open
+        for contributions on <a href="https://github.com/soni801/mc-loot-table-explorer" target="_blank">GitHub<mat-icon class="text-icon" fontIcon="open_in_new"></mat-icon></a>.</p>
+      <mat-divider></mat-divider>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="fileInput.click()">IMPORT</button>
+      <button mat-button (click)="exportFile()">EXPORT</button>
+
+      <input hidden (change)="onFileSelected()" #fileInput type="file" accept="application/json" id="import-file-input">
+      <a hidden id="export-file-anchor"></a>
+    </mat-card-actions>
+  </mat-card>
+  <h4 class="padding-top">Pools</h4>
+  <mat-list>
+    @for (pool of pools; track pool) {
+      <mat-list-item>
+        <span matListItemTitle>Pool {{pools.indexOf(pool) + 1}}</span>
+        <span matListItemLine>{{pool.entries.length}} entries</span>
+      </mat-list-item>
+    }
+  </mat-list>
 </div>
