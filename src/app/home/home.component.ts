@@ -8,6 +8,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatDivider} from "@angular/material/divider";
 import {MatDialog} from "@angular/material/dialog";
 import {InvalidFileDialogComponent} from "../invalid-file-dialog/invalid-file-dialog.component";
+import {LootTable} from "../models/loot-table.model";
 
 @Component({
   selector: 'app-home',
@@ -25,8 +26,7 @@ import {InvalidFileDialogComponent} from "../invalid-file-dialog/invalid-file-di
   ]
 })
 export class HomeComponent {
-  importedFile: any = null;
-  text: string = '';
+  importedFile?: LootTable;
 
   constructor(public dialog: MatDialog) {}
 
@@ -37,13 +37,18 @@ export class HomeComponent {
       const reader = new FileReader();
 
       reader.onload = (e: any) => {
-        this.importedFile = JSON.parse(e.target.result);
-        this.text = JSON.stringify(this.importedFile);
+        try
+        {
+          this.importedFile = JSON.parse(e.target.result);
+        }
+        catch (e)
+        {
+          // Open error dialog if the file is invalid
+          this.openDialog();
+        }
       };
 
       reader.readAsText(inputNode.files[0]);
-
-      // TODO: Validate file here. If invalid, run openDialog() function and reject file.
     }
   }
 
