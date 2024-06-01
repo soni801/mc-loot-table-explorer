@@ -22,4 +22,31 @@ import {MatDivider} from "@angular/material/divider";
     MatDivider
   ]
 })
-export class HomeComponent {}
+export class HomeComponent {
+  importedFile: any = null;
+  text: string = '';
+
+  onFileSelected() {
+    const inputNode: any = document.querySelector('#import-file-input');
+
+    if (typeof (FileReader) !== 'undefined') {
+      const reader = new FileReader();
+
+      reader.onload = (e: any) => {
+        this.importedFile = JSON.parse(e.target.result);
+        this.text = JSON.stringify(this.importedFile);
+      };
+
+      reader.readAsText(inputNode.files[0]);
+    }
+  }
+
+  exportFile() {
+    const dataAsString = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.importedFile));
+    const exportFileAnchor = document.querySelector('#export-file-anchor') as HTMLAnchorElement;
+
+    exportFileAnchor.setAttribute('href', dataAsString);
+    exportFileAnchor.setAttribute('download', 'loot_table.json');
+    exportFileAnchor.click();
+  }
+}
