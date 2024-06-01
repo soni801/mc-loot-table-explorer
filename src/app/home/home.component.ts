@@ -1,13 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { map } from 'rxjs/operators';
 import { AsyncPipe } from '@angular/common';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-home',
@@ -15,20 +14,35 @@ import { map, shareReplay } from 'rxjs/operators';
   styleUrl: './home.component.scss',
   standalone: true,
   imports: [
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatListModule,
-    MatIconModule,
     AsyncPipe,
+    MatGridListModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
+    MatCardModule
   ]
 })
 export class HomeComponent {
   private breakpointObserver = inject(BreakpointObserver);
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
+  /** Based on the screen size, switch from standard to one column per row */
+  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+    map(({ matches }) => {
+      if (matches) {
+        return [
+          { title: 'Card 1', cols: 1, rows: 1 },
+          { title: 'Card 2', cols: 1, rows: 1 },
+          { title: 'Card 3', cols: 1, rows: 1 },
+          { title: 'Card 4', cols: 1, rows: 1 }
+        ];
+      }
+
+      return [
+        { title: 'Card 1', cols: 2, rows: 1 },
+        { title: 'Card 2', cols: 1, rows: 1 },
+        { title: 'Card 3', cols: 1, rows: 2 },
+        { title: 'Card 4', cols: 1, rows: 1 }
+      ];
+    })
+  );
 }
