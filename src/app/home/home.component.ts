@@ -21,11 +21,28 @@ import {MatFormField, MatFormFieldModule} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
 import {
-  MatAccordion, MatExpansionModule,
+  MatAccordion,
+  MatExpansionModule,
   MatExpansionPanel,
   MatExpansionPanelDescription,
   MatExpansionPanelTitle
 } from "@angular/material/expansion";
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
+  MatTable,
+  MatTableDataSource
+} from "@angular/material/table";
+import {MatSort, MatSortHeader, Sort} from "@angular/material/sort";
+import {PoolEntry} from "../models/pool-entry.model";
+import {LiveAnnouncer} from "@angular/cdk/a11y";
 
 @Component({
   selector: 'app-home',
@@ -53,13 +70,27 @@ import {
     MatExpansionModule,
     MatExpansionPanel,
     MatExpansionPanelTitle,
-    MatExpansionPanelDescription
+    MatExpansionPanelDescription,
+    MatTable,
+    MatSort,
+    MatColumnDef,
+    MatHeaderCell,
+    MatHeaderCellDef,
+    MatSortHeader,
+    MatCell,
+    MatCellDef,
+    MatHeaderRow,
+    MatRow,
+    MatRowDef,
+    MatHeaderRowDef
   ]
 })
 export class HomeComponent {
   importedFile?: LootTable;
   fileName: string = '';
   pools: LootTablePool[] = [];
+  poolDataSources: MatTableDataSource<PoolEntry>[] = [];
+  displayedColumns: string[] = ['type', 'name', 'weight', 'functions'];
 
   constructor(public dialog: MatDialog) {}
 
@@ -82,6 +113,7 @@ export class HomeComponent {
 
           // Add pools
           this.pools = this.importedFile.pools;
+          this.pools.forEach(p => this.poolDataSources.push(new MatTableDataSource(p.entries)));
         }
         catch (e)
         {
